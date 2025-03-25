@@ -100,7 +100,6 @@ function Dashboard(): JSX.Element {
             <th>Cliente</th>
             <th>Fecha</th>
             <th>Articulos</th>
-            <th>Total</th>
             <th>Estatus</th>
             <th>Acciones</th>
           </tr>
@@ -112,7 +111,6 @@ function Dashboard(): JSX.Element {
               <td>{order.customer}</td>
               <td>{order.date}</td>
               <td>{order.items}</td>
-              <td>{order.total}</td>
               <td>{order.status}</td>
               <td>
                 <Button variant="outline-secondary" size="sm" className="me-2">

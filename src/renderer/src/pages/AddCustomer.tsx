@@ -39,13 +39,13 @@ function AddCustomer(): JSX.Element {
         </Form.Group>
         
 
-        <h5 className="mt-4">Informacion Adicional</h5>
+        {/* <h5 className="mt-4">Informacion Adicional</h5>
       
 
         <Form.Group controlId="notes" className="mt-3">
           <Form.Label>Notas</Form.Label>
           <Form.Control as="textarea" rows={3} placeholder="Notas del cliente" />
-        </Form.Group>
+        </Form.Group> */}
         
      
         

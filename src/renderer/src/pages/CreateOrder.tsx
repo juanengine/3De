@@ -48,6 +48,11 @@ function CreateOrder(): JSX.Element {
           <FaCalendarAlt />
         </Button>
       </InputGroup>
+
+      <h5>Cantidad de articulos</h5>
+      <InputGroup className="mb-3">
+        <Form.Control type="number" placeholder="1" />
+      </InputGroup>
       
       {/* <h5>Productos</h5>
       <Table bordered>
