@@ -95,7 +95,7 @@ function CreateOrder(): JSX.Element {
       <Form.Control as="textarea" rows={3} placeholder="Notas del pedido..." />
       
       <div className="mt-4 d-flex justify-content-end">
-        <Button variant="light" className="me-2" onClick={()=> navigate("/")} >Cancelar</Button>
+        <Button variant="light" className="me-2" onClick={()=> navigate("/home")} >Cancelar</Button>
         <Button variant="primary">Crear Pedido</Button>
       </div>
     </Container>

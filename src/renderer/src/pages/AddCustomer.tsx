@@ -50,7 +50,7 @@ function AddCustomer(): JSX.Element {
      
         
         <div className="mt-4 d-flex justify-content-end">
-          <Button variant="light" className="me-2" onClick={()=> navigate("/")}>Cancelar</Button>
+          <Button variant="light" className="me-2" onClick={()=> navigate("/home")}>Cancelar</Button>
           <Button variant="primary">Guardar Clientte</Button>
         </div>
       </Form>
