@@ -8,18 +8,21 @@ interface User {
 }
 
 export interface AuthState {
-  user: User | null;
+  
   token: string | null;
   loading: boolean;
+  msg: string;
   error: string | null;
+  success:boolean;
 }
 
 // Estado inicial
 const initialState: AuthState = {
-  user: null,
+  msg:"",
   token: null,
   loading: false,
   error: null,
+  success: false
 };
 
 const URL = "http://localhost:3000"
@@ -44,7 +47,7 @@ const authSlice = createSlice({
   initialState,
   reducers: {
     logout: (state) => {
-      state.user = null;
+      state.msg = "";
       state.token = null;
     },
   },
@@ -54,14 +57,16 @@ const authSlice = createSlice({
         state.loading = true;
         state.error = null;
       })
-      .addCase(loginUser.fulfilled, (state, action: PayloadAction<{ user: User; token: string }>) => {
+      .addCase(loginUser.fulfilled, (state, action: PayloadAction<{ msg: string; token: string; success: boolean }>) => {
         state.loading = false;
-        state.user = action.payload.user;
+        state.msg = action.payload.msg;
         state.token = action.payload.token;
+        state.success = action.payload.success;
       })
       .addCase(loginUser.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload as string;
+        state.success = false;
       });
   },
 });

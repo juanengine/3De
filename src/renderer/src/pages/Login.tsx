@@ -1,7 +1,8 @@
 import { loginUser } from "@renderer/redux/slices/authSlice";
 import { useState } from "react";
 import { Form, Button, Container, Card, Alert } from "react-bootstrap";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -9,6 +10,10 @@ const Login = () => {
   const [error, setError] = useState("");
 
   const dispatch = useDispatch();
+  
+  const authData = useSelector((state)=>state.auth);
+
+  const navigate = useNavigate();
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -21,6 +26,15 @@ const Login = () => {
     
     console.log("Iniciar sesión con", { email, password });
     dispatch(loginUser({email, password}));
+    console.log("Auth Data: ", authData);
+
+    if(authData.success){
+      navigate("/home");
+      setError("");
+    }else{
+      setError(authData.msg)
+    }
+    
   };
 
   return (

@@ -25,6 +25,19 @@ function Dashboard(): JSX.Element {
     return (
     
       <Container fluid className="mb-5 vh-100 overflow-auto">
+        <Row className="mb-3">
+        <Col md={6}>
+        
+           
+            <Button variant="outline-secondary" onClick={()=> navigate("/")} >
+              Salir
+            </Button>
+       
+        </Col>
+        <Col md={6} className="text-end">
+          <Button variant="primary" onClick={()=> navigate("/add-customer")}>Agregar cliente</Button>
+        </Col>
+      </Row>
       <Row>
         <Col className="mt-4 mb-4">
         <h2>El 1/4 de Arriba</h2>
