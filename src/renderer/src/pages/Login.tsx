@@ -26,13 +26,14 @@ const Login = () => {
     
     console.log("Iniciar sesión con", { email, password });
     dispatch(loginUser({email, password}));
+
     console.log("Auth Data: ", authData);
 
     if(authData.success){
       navigate("/home");
       setError("");
     }else{
-      setError(authData.msg)
+      setError("Error en la autenticacion")
     }
     
   };

@@ -1,16 +1,30 @@
+import { CustomerState, fetchCustomers } from "@renderer/redux/slices/customerSlice";
+import { useEffect } from "react";
 import { Button, Col, Container, Form, InputGroup, Row, Stack, Table } from "react-bootstrap";
 import { FaSearch, FaEdit, FaTrash, FaEye } from "react-icons/fa";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
 
 function Dashboard(): JSX.Element {
 
-  const customers = [
-    { name: "John Smith", email: "john.smith@example.com", phone: "+1 555-123-4567", orders: 12, status: "Active", lastOrder: "May 15, 2023" },
-    { name: "Sarah Johnson", email: "sarah.j@example.com", phone: "+1 555-987-6543", orders: 8, status: "Active", lastOrder: "Jun 2, 2023" },
-    { name: "Michael Brown", email: "m.brown@example.com", phone: "+1 555-456-7890", orders: 5, status: "Inactive", lastOrder: "Apr 10, 2023" },
-    { name: "Emily Davis", email: "emily.d@example.com", phone: "+1 555-789-0123", orders: 15, status: "Active", lastOrder: "Jun 10, 2023" }
-  ];
+
+  const customersData = useSelector((state)=>state.customers);
+  const dispatch = useDispatch();
+  
+
+
+
+  useEffect(()=>{
+    dispatch(fetchCustomers());
+  }, []);
+
+  
+
+  console.log("Customers Data: ", customersData);
+  
+
+  
   
   const orders = [
     { id: "ORD-7829", customer: "Emily Davis", date: "Jun 10, 2023", items: 3, total: "$245.99", status: "Delivered" },
@@ -26,7 +40,7 @@ function Dashboard(): JSX.Element {
     
       <Container fluid className="mb-5 vh-100 overflow-auto">
         <Row className="mb-3">
-        <Col md={6}>
+        <Col md={6} className="text-end mt-4">
         
            
             <Button variant="outline-secondary" onClick={()=> navigate("/")} >
@@ -34,9 +48,7 @@ function Dashboard(): JSX.Element {
             </Button>
        
         </Col>
-        <Col md={6} className="text-end">
-          <Button variant="primary" onClick={()=> navigate("/add-customer")}>Agregar cliente</Button>
-        </Col>
+     
       </Row>
       <Row>
         <Col className="mt-4 mb-4">
@@ -54,7 +66,7 @@ function Dashboard(): JSX.Element {
             </Button>
           </InputGroup>
         </Col>
-        <Col md={6} className="text-end">
+        <Col md={6} className="text-end mt-4">
           <Button variant="primary" onClick={()=> navigate("/add-customer")}>Agregar cliente</Button>
         </Col>
       </Row>
@@ -64,19 +76,19 @@ function Dashboard(): JSX.Element {
         <thead>
           <tr>
             <th>Nombre</th>
+            <th>Apellidos</th>
             <th>Email</th>
             <th>Telefono</th>
-            <th>Ultimo Pedido</th>
             <th>Acciones</th>
           </tr>
         </thead>
         <tbody>
-          {customers.map((customer, index) => (
+          { customersData.customers.length > 0 && customersData.customers.map((customer, index) => (
             <tr key={index}>
-              <td>{customer.name}</td>
+              <td>{customer.nombre}</td>
+              <td>{customer.apellidos}</td>
               <td>{customer.email}</td>
-              <td>{customer.phone}</td>
-              <td>{customer.lastOrder}</td>
+              <td>{customer.telefono}</td>
               <td>
                 <Button variant="outline-primary" size="sm" className="me-2">
                   <FaEdit />
@@ -100,7 +112,7 @@ function Dashboard(): JSX.Element {
             </Button>
           </InputGroup>
         </Col>
-        <Col md={6} className="text-end">
+        <Col md={6} className="text-end mt-4">
           <Button variant="primary" onClick={()=> navigate("/create-order")}>Crear pedido</Button>
         </Col>
       </Row>

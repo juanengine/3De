@@ -1,11 +1,35 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 
-const API_URL = "https://api.example.com/customers"; // Reemplaza con tu URL real
+// Definir tipos
+interface Customer {
+  _id: string;
+  email: string;
+  nombre: string;
+  apellidos: string;
+  telefono: string;
+}
+
+export interface CustomerState {
+  customers: Customer[];
+  loading: boolean;
+  error:string | null;
+  
+}
+
+const initialState: CustomerState ={
+  customers:[],
+  loading:false,
+  error:null
+}
+
+const API_URL = "http://localhost:3000"; // Reemplaza con tu URL real
 
 // 🔹 Obtener todos los clientes
 export const fetchCustomers = createAsyncThunk("customers/fetchCustomers", async () => {
-  const response = await axios.get(API_URL);
+  const response = await axios.get(`${API_URL}/customer`);
+  console.log("Customers: ", response.data);
+  
   return response.data;
 });
 
@@ -23,20 +47,26 @@ export const deleteCustomer = createAsyncThunk("customers/deleteCustomer", async
 
 const customerSlice = createSlice({
   name: "customers",
-  initialState: { list: [], status: "idle", error: null },
-  reducers: {},
+  initialState,
+  reducers: {
+
+  },
   extraReducers: (builder) => {
     builder
       .addCase(fetchCustomers.fulfilled, (state, action) => {
-        state.list = action.payload;
+        console.log("customers payload : ", action.payload);
+        
+        state.customers = action.payload;
       })
       .addCase(addCustomer.fulfilled, (state, action) => {
-        state.list.push(action.payload);
+        state.customers.push(action.payload);
       })
-      .addCase(deleteCustomer.fulfilled, (state, action) => {
-        state.list = state.list.filter((customer) => customer.id !== action.payload);
+      .addCase(deleteCustomer.fulfilled, (state, action:any) => {
+        state.customers = state.customers.filter((customer) => customer._id !== action.payload);
       });
   },
 });
+
+
 
 export default customerSlice.reducer;
